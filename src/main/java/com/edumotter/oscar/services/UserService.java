@@ -1,6 +1,7 @@
 package com.edumotter.oscar.services;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,23 +38,16 @@ public class UserService {
 
 	@Transactional
 	public UserDTO loginUser(UserLoginDTO dto) { 
-		//Get users 
 		User user = repository.findByLogin(dto.getLogin());
-		//Se n for null, verifica credenciais:
 		if (null != user) {
-				//Dps descriptografar a senha:
-				if(user.getPassword().equals(dto.getPassword())) {
-					//Login correto:
-					long intId = user.getId();
-					int token = (100 - (int)intId); 
-					user.setToken(78);
-					user = repository.save(user);
-					UserDTO userUpdated = new UserDTO(user);
-					userUpdated.setPassword(null);
-					return userUpdated;
-				}				
+			if(user.getPassword().equals(dto.getPassword())) {
+				user.setToken(getRandomNumber());
+				user = repository.save(user);
+				UserDTO userUpdated = new UserDTO(user);
+				userUpdated.setPassword(null);
+				return userUpdated;
+			}				
 		}
-		//Login incorreto:
 		return null;
 	}
 	
@@ -67,5 +61,10 @@ public class UserService {
 		user.setFilm(f);
 		user = repository.save(user);
 		return new UserDTO(user);
+	}
+	
+	public int getRandomNumber() {
+		Random r = new Random();
+		return r.nextInt(100) + 1;
 	}
 }
