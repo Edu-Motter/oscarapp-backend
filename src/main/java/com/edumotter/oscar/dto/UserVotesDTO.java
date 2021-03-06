@@ -13,15 +13,17 @@ public class UserVotesDTO implements Serializable{
 	private Long idUser;
 	private Long idFilm;
 	private Long idDirector;
+	private Long token;
 
 	public UserVotesDTO() {	
 	}
 
-	public UserVotesDTO(Long idUser, Long idFilm, Long idDirector) {
+	public UserVotesDTO(Long idUser, Long idFilm, Long idDirector, Long token) {
 		super();
 		this.idUser = idUser;
 		this.idFilm = idFilm;
 		this.idDirector = idDirector;
+		this.token = token;
 	}
 
 	public Long getIdUser() {
@@ -48,5 +50,12 @@ public class UserVotesDTO implements Serializable{
 		this.idDirector = idDirector;
 	}
 
-	
+	public Long getToken() {
+		return token;
+	}
+
+	public void setToken(Long token) {
+		this.token = token;
+	}
+
 }

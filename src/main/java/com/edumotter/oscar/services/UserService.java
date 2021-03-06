@@ -20,49 +20,69 @@ import com.edumotter.oscar.repositories.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private FilmRepository filmRepository;
-	
+
 	@Autowired
 	private DirectorRepository directorRepository;
-	
+
 	@Transactional(readOnly = true)
-	public List<UserDTO> findAll(){
+	public List<UserDTO> findAll() {
 		List<User> list = repository.findAllByOrderByIdAsc();
 		return list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 	}
 
 	@Transactional
-	public UserDTO loginUser(UserLoginDTO dto) { 
+	public UserDTO loginUser(UserLoginDTO dto) {
 		User user = repository.findByLogin(dto.getLogin());
-		if (null != user) {
-			if(user.getPassword().equals(dto.getPassword())) {
-				user.setToken(getRandomNumber());
-				user = repository.save(user);
-				UserDTO userUpdated = new UserDTO(user);
-				userUpdated.setPassword(null);
-				return userUpdated;
-			}				
+		try {
+			if (null != user) {
+				if (user.getPassword().equals(dto.getPassword())) {
+					user.setToken(getRandomNumber());
+					user = repository.save(user);
+					UserDTO userUpdated = new UserDTO(user);
+					userUpdated.setPassword(null);
+					return userUpdated;
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
-	
+
 	@Transactional
 	public UserDTO setVotes(UserVotesDTO dto) {
-		User user = repository.findById(dto.getIdUser()).get();
-		//Pega o que esta associado ao usuario?
-		Film f = filmRepository.findById(dto.getIdFilm()).get();
-		Director d = directorRepository.findById(dto.getIdDirector()).get();
-		user.setDirector(d);
-		user.setFilm(f);
-		user = repository.save(user);
-		return new UserDTO(user);
+		boolean save = false;
+		try {
+			User user = repository.findById(dto.getIdUser()).get();
+			if (user.getToken() == dto.getToken()) {
+				Film film = filmRepository.findById(dto.getIdFilm()).get();
+				Director director = directorRepository.findById(dto.getIdDirector()).get();
+				if (film == null) {
+					user.setFilm(film);
+					save = true;
+				} else if (director == null) {
+					user.setDirector(director);
+					save = true;
+				}
+				if (save)
+					user = repository.save(user);
+
+				return new UserDTO(user);
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	
+
 	public int getRandomNumber() {
 		Random r = new Random();
 		return r.nextInt(100) + 1;

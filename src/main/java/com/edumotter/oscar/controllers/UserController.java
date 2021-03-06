@@ -40,12 +40,15 @@ public class UserController {
 		if(null != userUpdated) {
 			return ResponseEntity.status(200).body(userUpdated);
 		}
-		return ResponseEntity.status(407).body(null);
+		return ResponseEntity.status(403).body(null);
 	}
 	
 	@PutMapping(value = "/voted")
 	public ResponseEntity<UserDTO> setVotes(@RequestBody UserVotesDTO dto){
 		UserDTO userUpdated = service.setVotes(dto);
-		return ResponseEntity.ok().body(userUpdated);
+		if (userUpdated != null)
+			return ResponseEntity.ok().body(userUpdated);
+		else
+			return ResponseEntity.status(403).body(null);
 	}
 }

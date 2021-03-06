@@ -35,9 +35,8 @@ public class UserDTO implements Serializable{
 		login = entity.getLogin();
 		password = entity.getPassword();
 		token = entity.getToken();
-		//Aqui não sei se esta correto:
-		director = entity.getDirector();
-		film = entity.getFilm();
+		director = entity.getDirector() == null ? null : entity.getDirector();
+		film = entity.getFilm() == null ? null : entity.getFilm();
 	}
 
 	public Long getId() {

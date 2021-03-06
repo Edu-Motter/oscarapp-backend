@@ -5,5 +5,11 @@ INSERT INTO tb_directors (name) VALUES ('James Cameron');
 INSERT INTO tb_directors (name) VALUES ('Alfred Hitchcoc');
 INSERT INTO tb_directors (name) VALUES ('Tim Burton');
 INSERT INTO tb_directors (name) VALUES ('Steven Spielberg');
-INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('admin','12345',99,1,3);
-INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('Eduardo','edu',98,2,2);
+INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('admin','12345',1,1,1);
+INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('Alessandro','123',1,1,1);
+INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('Eduardo','123',1,1,1);
+INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('Carlos','123',1,1,1);
+INSERT INTO tb_users (login, password, token, film_id, director_id) VALUES ('Isabelle','123',1,1,1);
+
+
+
