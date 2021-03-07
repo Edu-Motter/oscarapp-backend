@@ -3,10 +3,8 @@ package com.edumotter.oscar.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.edumotter.oscar.entities.Film;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class FilmDTO implements Serializable{
 
@@ -33,7 +31,7 @@ public class FilmDTO implements Serializable{
 		name = entity.getName();
 		genre = entity.getGenre();
 		photo = entity.getPhoto();
-		users = entity.getUsers().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		//users = entity.getUsers().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {

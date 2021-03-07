@@ -2,11 +2,7 @@ package com.edumotter.oscar.dto;
 
 import java.io.Serializable;
 
-import com.edumotter.oscar.entities.Director;
-import com.edumotter.oscar.entities.Film;
-import com.edumotter.oscar.entities.User;
-
-public class UserVotesDTO implements Serializable{
+public class UserVoteDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -15,10 +11,10 @@ public class UserVotesDTO implements Serializable{
 	private Long idDirector;
 	private Long token;
 
-	public UserVotesDTO() {	
+	public UserVoteDTO() {	
 	}
 
-	public UserVotesDTO(Long idUser, Long idFilm, Long idDirector, Long token) {
+	public UserVoteDTO(Long idUser, Long idFilm, Long idDirector, Long token) {
 		super();
 		this.idUser = idUser;
 		this.idFilm = idFilm;

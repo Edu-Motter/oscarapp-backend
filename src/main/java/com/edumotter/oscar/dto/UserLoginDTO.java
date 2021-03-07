@@ -2,8 +2,6 @@ package com.edumotter.oscar.dto;
 
 import java.io.Serializable;
 
-import com.edumotter.oscar.entities.Director;
-import com.edumotter.oscar.entities.Film;
 import com.edumotter.oscar.entities.User;
 
 public class UserLoginDTO implements Serializable{

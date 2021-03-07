@@ -3,10 +3,8 @@ package com.edumotter.oscar.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.edumotter.oscar.entities.Director;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class DirectorDTO implements Serializable{
 
@@ -27,7 +25,7 @@ public class DirectorDTO implements Serializable{
 	public DirectorDTO(Director entity) {
 		id = entity.getId();
 		name = entity.getName();
-		users = entity.getUsers().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		//users = entity.getUsers().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {

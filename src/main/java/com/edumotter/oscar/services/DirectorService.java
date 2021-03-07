@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.edumotter.oscar.dto.DirectorDTO;
 import com.edumotter.oscar.entities.Director;
-import com.edumotter.oscar.entities.Film;
 import com.edumotter.oscar.repositories.DirectorRepository;
 
 @Service

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.edumotter.oscar.dto.UserDTO;
 import com.edumotter.oscar.dto.UserLoginDTO;
-import com.edumotter.oscar.dto.UserVotesDTO;
+import com.edumotter.oscar.dto.UserVoteDTO;
 import com.edumotter.oscar.entities.Director;
 import com.edumotter.oscar.entities.Film;
 import com.edumotter.oscar.entities.User;
@@ -57,23 +57,15 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO setVotes(UserVotesDTO dto) {
-		boolean save = false;
+	public UserDTO setVote(UserVoteDTO dto) {
 		try {
 			User user = repository.findById(dto.getIdUser()).get();
 			if (user.getToken() == dto.getToken()) {
 				Film film = filmRepository.findById(dto.getIdFilm()).get();
 				Director director = directorRepository.findById(dto.getIdDirector()).get();
-				if (film == null) {
-					user.setFilm(film);
-					save = true;
-				} else if (director == null) {
-					user.setDirector(director);
-					save = true;
-				}
-				if (save)
-					user = repository.save(user);
-
+				user.setFilm(film);
+				user.setDirector(director);
+				user = repository.save(user);
 				return new UserDTO(user);
 			}
 			return null;
